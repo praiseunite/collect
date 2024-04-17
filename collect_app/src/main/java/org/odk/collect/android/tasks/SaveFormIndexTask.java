@@ -17,6 +17,7 @@
 package org.odk.collect.android.tasks;
 
 import android.os.AsyncTask;
+import io.github.pixee.security.ObjectInputFilters;
 
 import org.javarosa.core.model.FormIndex;
 import org.odk.collect.android.javarosawrapper.FormController;
@@ -91,6 +92,7 @@ public class SaveFormIndexTask extends AsyncTask<Void, Void, String> {
                     .getInstanceFile()
                     .getName();
             ObjectInputStream ois = new ObjectInputStream(new FileInputStream(SaveFormToDisk.getFormIndexFile(instanceName)));
+            ObjectInputFilters.enableObjectFilterIfUnprotected(ois);
             formIndex = (FormIndex) ois.readObject();
             ois.close();
         } catch (Exception e) {
